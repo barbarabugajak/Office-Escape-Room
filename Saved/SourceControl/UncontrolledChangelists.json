@@ -1,0 +1,24 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/StarterContent/Maps/StarterMap_BuiltData.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/2/BO/QTZ4KPAPS7DW1AODCLUF82.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/EscapeRoom_Lvl1_Office.umap",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/SM_Key.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/SM_KeyTag.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/SM_Ring.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/HUD_Key_Text.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/StarterContent/Props/SM_Door.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/5/DI/1JZHHCOBVQ2F5XRUWSES1X.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/B/UI/PWMWFQ192VWADAL8SMITZ9.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/1/NC/AXZWKR84NDFNI4H409K9YT.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/2/KD/MR1UJUOUK3ZIC89T3QPB9Y.uasset",
+				"/Users/basiabugi/Documents/Unreal Projects/Escape_Room_Game/Content/Office/Key_Text.uasset"
+			]
+		}
+	]
+}
