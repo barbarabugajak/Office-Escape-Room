@@ -87,7 +87,7 @@ void ADoor::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	EnableInput(PC);
 
 	// Bind the input action to handle door interaction
-	InputComponent->BindAction("OpenDoor", IE_Pressed, this, &ADoor::HandleInput); // Bound in engine
+	InputComponent->BindAction("Interact", IE_Pressed, this, &ADoor::HandleInput); // Bound in engine
 }
 
 // Called when an overlap ends

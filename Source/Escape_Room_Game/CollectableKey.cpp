@@ -3,6 +3,7 @@
 
 #include "CollectableKey.h"
 #include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACollectableKey::ACollectableKey()
@@ -38,9 +39,9 @@ ACollectableKey::ACollectableKey()
 	if (Opens != nullptr)
 	{
 		// Enable overlap events for the box component and bind the overlap event to a handler
-		BoxComponent->SetGenerateOverlapEvents(true);
+		// BoxComponent->SetGenerateOverlapEvents(true);
 		// Add a response to overlapping
-		BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ACollectableKey::OnBeginOverlap);
+		// BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ACollectableKey::OnBeginOverlap);
 	}
 
 	// Scale the component
@@ -66,24 +67,35 @@ void ACollectableKey::Tick(float DeltaTime)
 
 }
 
-// Reconsider changing to keyboard event
-void ACollectableKey::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+// React to a keyboard event
+void ACollectableKey::OnInteract()
 {
+	UE_LOG(LogTemp, Display, TEXT("OnInteract"));
 	// Important, crashes UE otherwise
 	if (Opens == nullptr) return;
-	// Ensure the overlap is with a valid actor and not the orb itself
-	if (!OtherActor || OtherActor == this)
-		return;
+
+	UE_LOG(LogTemp, Display, TEXT("Player collected the key"));
+	Opens->SetHasKey(true);
+	Destroy(this);
 	
-	// Check if the overlapping actor is of the Character class
-	if (OtherActor->IsA(ACharacter::StaticClass()))
-	{
-		UE_LOG(LogTemp, Display, TEXT("Player collected the key"));
-		Opens->SetHasKey(true);
-		Destroy(this);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Non-player actor overlapped with the key"));
-	}
 }	
+
+void ACollectableKey::OnLookedAt_Implementation(AActor* LookingActor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("The Key is being looked at by %s"), *GetName(), *LookingActor->GetName());
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PC)
+	{
+		EnableInput(PC); // Enable input for this actor
+
+		// Check if InputComponent is valid
+		if (!InputComponent)
+		{
+			InputComponent = NewObject<UInputComponent>(this);
+			InputComponent->RegisterComponent();
+		}
+
+		// Bind the input action to handle door interaction
+		InputComponent->BindAction("Interact", IE_Pressed, this, &ACollectableKey::OnInteract);
+	}
+}

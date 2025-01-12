@@ -12,6 +12,7 @@
 #include "SNegativeActionButton.h"
 #include "Engine/LocalPlayer.h"
 #include "Interfaces/IHttpResponse.h"
+#include "LookableInterface.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -152,6 +153,14 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 		if (HitActor->ActorHasTag("CanBeLookedAtByPlayer"))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Looking at: %s"), *HitResult.GetActor()->GetName());
+			if (HitActor && HitActor->GetClass()->ImplementsInterface(ULookableInterface::StaticClass()))
+			{
+				ILookableInterface::Execute_OnLookedAt(HitActor, this);
+			}
+
+
+
+
 		}
 		// If needed draw a debug sphere to visualize the "wider ray"
 		// DrawDebugSphere(GetWorld(), End, Radius, 12, FColor::Red, false, 1.0f, 0, 1.0f);

@@ -6,10 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h" // Import the Box component 
 #include "LockedDoor.h"
+#include "LookableInterface.h" // For interface handling
 #include "CollectableKey.generated.h"
 
 UCLASS()
-class ESCAPE_ROOM_GAME_API ACollectableKey : public AActor
+class ESCAPE_ROOM_GAME_API ACollectableKey : public AActor, public ILookableInterface
 {
 	GENERATED_BODY()
 	
@@ -37,9 +38,7 @@ public:
 	ALockedDoor* Opens; // Reference to what the key opens
 
 	UFUNCTION()
-	// Function triggered when another actor overlaps with the Orb's box component.
-	// Used to handle player interaction when the Orb is collected
-	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
-	const FHitResult& SweepResult); // Arguments are boilerplate
+	void OnInteract();
+
+	virtual void OnLookedAt_Implementation(AActor* LookingActor) override;
 };
