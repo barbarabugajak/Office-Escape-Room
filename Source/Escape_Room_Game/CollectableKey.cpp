@@ -4,6 +4,8 @@
 #include "CollectableKey.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
+#include "UserTipsWidget.h"
+
 
 // Sets default values
 ACollectableKey::ACollectableKey()

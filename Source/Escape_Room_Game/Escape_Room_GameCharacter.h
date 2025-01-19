@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LookableInterface.h"
+#include "UserTipsWidget.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "Escape_Room_GameCharacter.generated.h"
@@ -74,6 +75,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Tick(float DeltaTime) override;
-	
 };
 
