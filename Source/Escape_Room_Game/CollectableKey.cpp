@@ -69,35 +69,44 @@ void ACollectableKey::Tick(float DeltaTime)
 
 }
 
-// React to a keyboard event
 void ACollectableKey::OnInteract()
 {
 	UE_LOG(LogTemp, Display, TEXT("OnInteract"));
-	// Important, crashes UE otherwise
-	if (Opens == nullptr) return;
 
-	UE_LOG(LogTemp, Display, TEXT("Player collected the key"));
-	Opens->SetHasKey(true);
-	Destroy(this);
-	
-}	
+	if (Opens && Opens->IsValidLowLevel())
+	{
+		Opens->SetHasKey(true);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid Opens reference in OnInteract!"));
+	}
+
+	Destroy();
+}
 
 void ACollectableKey::OnLookedAt_Implementation(AActor* LookingActor)
 {
-	UE_LOG(LogTemp, Warning, TEXT("The Key is being looked at by %s"), *GetName(), *LookingActor->GetName());
+	if (!LookingActor) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LookingActor is nullptr!"));
+		return;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("The Key is being looked at by %s"), *LookingActor->GetName());
+
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (PC)
 	{
-		EnableInput(PC); // Enable input for this actor
+		EnableInput(PC);
 
-		// Check if InputComponent is valid
 		if (!InputComponent)
 		{
-			InputComponent = NewObject<UInputComponent>(this);
+			InputComponent = NewObject<UInputComponent>(this, TEXT("KeyInputComponent"));
 			InputComponent->RegisterComponent();
+			this->AddOwnedComponent(InputComponent); // Ensures proper lifecycle management
 		}
 
-		// Bind the input action to handle door interaction
 		InputComponent->BindAction("Interact", IE_Pressed, this, &ACollectableKey::OnInteract);
 	}
 }
+
