@@ -124,8 +124,8 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 	PlayerController->GetPlayerViewPoint(CameraLocation, CameraRotation);
 
 	FVector Start = CameraLocation;
-	FVector End = CameraLocation + CameraRotation.Vector() * 500.0f;
-	float Radius = 40.0f;
+	FVector End = CameraLocation + CameraRotation.Vector() * 1000.0f;
+	float Radius = 100.0f;
 	// Define endpoint
 	// FVector TraceEnd = CameraLocation + (CameraRotation.Vector() * 1000.f);
 
@@ -165,7 +165,7 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 		// If needed draw a debug sphere to visualize the "wider ray"
 		// DrawDebugSphere(GetWorld(), End, Radius, 12, FColor::Red, false, 1.0f, 0, 1.0f);
 	} 
-
+	
 		
 }
 
