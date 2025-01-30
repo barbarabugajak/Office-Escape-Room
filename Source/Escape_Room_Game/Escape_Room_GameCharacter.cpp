@@ -13,6 +13,8 @@
 #include "Engine/LocalPlayer.h"
 #include "Interfaces/IHttpResponse.h"
 #include "LookableInterface.h"
+#include "Net/NetworkMetricsDefs.h"
+#include "UObject/TemplateString.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -114,59 +116,43 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 
 	if (PlayerController == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Controller is of type: %s"), *Controller->GetClass()->GetName());
+		UE_LOG(LogTemp, Error, TEXT("PlayerController is null"));
 		return;
 	}
 
-	// Get camera location and rotation
-	FVector CameraLocation;
-	FRotator CameraRotation;
-	PlayerController->GetPlayerViewPoint(CameraLocation, CameraRotation);
+	// Raycasting (Line Trace by Object)
+	UWorld * CurrentWorld = GetWorld();
+	FHitResult ActorHit;
+	FVector RayStart = this->GetActorLocation();
+	// Line trace from player's current location to a point 1000 ahead of it
+	FVector RayEnd = RayStart + GetControlRotation().Vector() * 1000.f; // Ensure proper distance
+	// Prevent from hitting self
+	FCollisionQueryParams CollisionParameters;
+	CollisionParameters.AddIgnoredActor(this);
 
-	FVector Start = CameraLocation;
-	FVector End = CameraLocation + CameraRotation.Vector() * 1000.0f;
-	float Radius = 100.0f;
-	// Define endpoint
-	// FVector TraceEnd = CameraLocation + (CameraRotation.Vector() * 1000.f);
+	FCollisionResponseParams ResponseParameters;
 
-	// Hit Result for the trace
-	FHitResult HitResult;
-
-	// Set up trace parameters
-	FCollisionQueryParams TraceParams(FName(TEXT("LookingAtTrace")), true, this);
+	// Perform raycasting
+	CurrentWorld->LineTraceSingleByChannel(ActorHit, RayStart, RayEnd, ECC_Visibility,  CollisionParameters, ResponseParameters);
 	
-	TraceParams.bTraceComplex = true;
-	TraceParams.bReturnPhysicalMaterial = false;
-	TraceParams.AddIgnoredActor(this);
-
-	bool bHit = GetWorld()->SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_Visibility, FCollisionShape::MakeSphere(Radius), TraceParams);
-
-	if (bHit && HitResult.GetActor())
+	if (ActorHit.GetActor() != nullptr)
 	{
-		AActor* HitActor = HitResult.GetActor();
-		if (HitActor->ActorHasTag("IgnoreForSight"))
+		AActor* Actor = Cast<AActor>(ActorHit.GetActor());
+		if (Actor != nullptr)
 		{
-			// Ignore this actor (do not process it)
-			return;
-		}
-		// Log the actor's name
-		if (HitActor->ActorHasTag("CanBeLookedAtByPlayer"))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Looking at: %s"), *HitResult.GetActor()->GetName());
-			if (HitActor && HitActor->GetClass()->ImplementsInterface(ULookableInterface::StaticClass()))
+			// Don't interact with all actors
+			if (Actor->Tags.Contains("CanBeLookedAtByPlayer"))
 			{
-				ILookableInterface::Execute_OnLookedAt(HitActor, this);
+				UE_LOG(LogTemp, Display, TEXT("Looking at %s"), *Actor->GetName());
+
 			}
-
-
-
-
+			
 		}
-		// If needed draw a debug sphere to visualize the "wider ray"
-		// DrawDebugSphere(GetWorld(), End, Radius, 12, FColor::Red, false, 1.0f, 0, 1.0f);
-	} 
+	}
+
 	
-		
+	// For debugging purposes
+	DrawDebugLine(CurrentWorld, RayStart, RayEnd, FColor(255, 0,0 ));
 }
 
 void AEscape_Room_GameCharacter::Tick(float DeltaTime)
