@@ -145,6 +145,11 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 			{
 				UE_LOG(LogTemp, Display, TEXT("Looking at %s"), *Actor->GetName());
 
+				if (Actor && Actor->GetClass()->ImplementsInterface(ULookableInterface::StaticClass()))
+				{
+					ILookableInterface::Execute_OnLookedAt(Actor, this);
+				}
+
 			}
 			
 		}
