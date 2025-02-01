@@ -7,6 +7,9 @@ ALockedDoor::ALockedDoor()
 	LockedDoor_RectLight->SetLightColor(FColor::Red);
 	LockedDoor_RectLight->AddRelativeLocation(FVector(0.0f, 0.0f, 200.0f));
 	LockedDoor_RectLight->SetupAttachment(GetRootComponent());
+
+	// To enable usage of ILookableInterface
+	Tags.Add(TEXT("CanBeLookedAtByPlayer"));
 }
 
 void ALockedDoor::BeginPlay()
