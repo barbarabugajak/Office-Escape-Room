@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "LookableInterface.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Door.generated.h"
@@ -10,7 +11,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenDoorSignature);
 
 UCLASS()
-class ESCAPE_ROOM_GAME_API ADoor : public AActor
+class ESCAPE_ROOM_GAME_API ADoor : public AActor, public ILookableInterface
 {
 	GENERATED_BODY()
 	
@@ -42,20 +43,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool bIsDoorOpen;
 
-	// Tracks whether the player is near the door
-	UPROPERTY(EditAnywhere)
-	bool bIsPlayerNear;
-
-	// Function to handle beginning of the overlap
-	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
-	// Function to handle the end of the overlap
-	UFUNCTION()
-	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	// Interface
+	virtual void OnLookedAt_Implementation(AActor* LookingActor) override;
 
 	// Handle the keyboard input
-	virtual void HandleInput();
+	virtual void OnInteract();
 };

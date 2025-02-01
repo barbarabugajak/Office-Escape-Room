@@ -28,7 +28,7 @@ class ESCAPE_ROOM_GAME_API ALockedDoor : public ADoor
 		void SetHasKey(bool bCanOpen);
 	
 		// Handle the keyboard input
-		virtual void HandleInput() override;
+		virtual void OnInteract() override;
 
 		// Override beginPlay
 		virtual void BeginPlay() override;

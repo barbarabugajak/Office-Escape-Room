@@ -24,11 +24,9 @@ void ALockedDoor::SetHasKey(bool bCanOpen)
 	}
 }
 
-void ALockedDoor::HandleInput()
+void ALockedDoor::OnInteract()
 {
 	// Ensure the player is near the door and the door has the key before interaction
-	if (bIsPlayerNear)
-	{
 		if (HasKey == true)
 		{
 			// Open or close the door based on the current state
@@ -47,5 +45,5 @@ void ALockedDoor::HandleInput()
 			bIsDoorOpen = false;
 			UE_LOG(LogTemp, Warning, TEXT("Locked Door"));
 		}
-	}
+	
 }
