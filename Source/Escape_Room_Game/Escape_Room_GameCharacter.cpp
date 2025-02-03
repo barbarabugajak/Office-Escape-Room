@@ -151,9 +151,23 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 					ILookableInterface::Execute_OnLookedAt(Actor, this);
 				}
 
+			} else
+			{
+				AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+				if (KeyTipHUD)
+				{
+					KeyTipHUD->ShowInteractMessage(false);
+				}
 			}
 			
-		}
+		} 
+	} else
+	{
+		AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+        		if (KeyTipHUD)
+        		{
+        			KeyTipHUD->ShowInteractMessage(false);
+        		}
 	}
 
 	
