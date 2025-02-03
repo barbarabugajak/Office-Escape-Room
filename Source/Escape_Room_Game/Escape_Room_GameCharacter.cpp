@@ -154,10 +154,20 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 
 				if (Actor && Actor->Tags.Contains("NPC"))
 				{
+					FString HUDText = "Says: ";
+					
+					if (Actor->Tags.Contains( "OfficeNPC_1"))
+					{
+						HUDText += "I think I left the key in the drawer";
+					}
+					else {
+						HUDText += "I don't have anything to say";
+					}
+					
 					AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 					if (KeyTipHUD)
 					{
-						KeyTipHUD->SetText("Says: ");
+						KeyTipHUD->SetText(HUDText);
 						KeyTipHUD->ShowInteractMessage(true);
 					}	
 				}
