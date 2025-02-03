@@ -126,6 +126,7 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 	FVector RayStart = this->GetActorLocation();
 	// Line trace from player's current location to a point 1000 ahead of it
 	FVector RayEnd = RayStart + GetControlRotation().Vector() * 1000.f; // Ensure proper distance
+	RayEnd.Z += 50.0f;
 	// Prevent from hitting self
 	FCollisionQueryParams CollisionParameters;
 	CollisionParameters.AddIgnoredActor(this);
