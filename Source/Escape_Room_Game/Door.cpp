@@ -89,7 +89,12 @@ void ADoor::OnLookedAt_Implementation(AActor* LookingActor)
 
 		InputComponent->BindAction("Interact", IE_Pressed, this, &ADoor::OnInteract);
 	}
-	
+
+	AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	if (KeyTipHUD)
+	{
+		KeyTipHUD->ShowInteractMessage(true);
+	}
 }
 
 // Handles the player's input to open/close the door

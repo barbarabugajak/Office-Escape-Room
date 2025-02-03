@@ -13,9 +13,6 @@ class AEscape_Room_GameGameMode : public AGameModeBase
 
 public:
 	AEscape_Room_GameGameMode();
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Gameplay")
-	bool hasKey = false;
 };
 
 
