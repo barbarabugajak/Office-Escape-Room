@@ -132,10 +132,10 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 	CollisionParameters.AddIgnoredActor(this);
 
 	FCollisionResponseParams ResponseParameters;
-
+	
 	// Perform raycasting
 	CurrentWorld->LineTraceSingleByChannel(ActorHit, RayStart, RayEnd, ECC_Visibility,  CollisionParameters, ResponseParameters);
-	
+	AActor* LastHitActor = nullptr;
 	if (ActorHit.GetActor() != nullptr)
 	{
 		AActor* Actor = Cast<AActor>(ActorHit.GetActor());
@@ -145,18 +145,34 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 			if (Actor->Tags.Contains("CanBeLookedAtByPlayer"))
 			{
 				UE_LOG(LogTemp, Display, TEXT("Looking at %s"), *Actor->GetName());
-
+		
 				if (Actor && Actor->GetClass()->ImplementsInterface(ULookableInterface::StaticClass()))
 				{
 					ILookableInterface::Execute_OnLookedAt(Actor, this);
+					LastHitActor = ActorHit.GetActor();
 				}
 
+				if (Actor && Actor->Tags.Contains("NPC"))
+				{
+					AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+					if (KeyTipHUD)
+					{
+						KeyTipHUD->SetText("Says: ");
+						KeyTipHUD->ShowInteractMessage(true);
+					}	
+				}
 			} else
 			{
 				AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 				if (KeyTipHUD)
 				{
 					KeyTipHUD->ShowInteractMessage(false);
+				}
+
+				// Clear bindings !!!!
+				if (LastHitActor != nullptr)
+				{
+					LastHitActor->DisableInput(GetWorld()->GetFirstPlayerController());
 				}
 			}
 			

@@ -93,6 +93,7 @@ void ADoor::OnLookedAt_Implementation(AActor* LookingActor)
 	AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 	if (KeyTipHUD)
 	{
+		KeyTipHUD->SetText("Press I to Interact");
 		KeyTipHUD->ShowInteractMessage(true);
 	}
 }

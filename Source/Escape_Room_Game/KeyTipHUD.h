@@ -16,6 +16,9 @@ public:
 
 	void ShowInteractMessage(bool bShow);
 
+	FString HUDText;
+
+	void SetText(FString text);
 private:
 	UPROPERTY()
 	UFont* HUDFont;

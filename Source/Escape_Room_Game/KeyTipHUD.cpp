@@ -20,7 +20,7 @@ void AKeyTipHUD::DrawHUD()
 
 	if (bShowInteractMessage && HUDFont)
 	{
-		FText InteractText = FText::FromString(TEXT("Press I to Interact"));
+		FText InteractText = FText::FromString(HUDText);
 		FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
 		FVector2D TextDimensions;
 
@@ -49,3 +49,9 @@ void AKeyTipHUD::ShowInteractMessage(bool bShow)
 {
 	bShowInteractMessage = bShow;
 }
+
+void AKeyTipHUD::SetText(FString text)
+{
+	HUDText = text;
+}
+
