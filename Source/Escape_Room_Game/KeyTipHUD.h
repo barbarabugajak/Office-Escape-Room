@@ -12,7 +12,7 @@ class ESCAPE_ROOM_GAME_API AKeyTipHUD : public AHUD
 public:
 	AKeyTipHUD();
 
-	virtual void DrawHUD() override; // Ensure this is correctly declared
+	virtual void DrawHUD() override;
 
 	void ShowInteractMessage(bool bShow);
 

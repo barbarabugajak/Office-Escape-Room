@@ -8,7 +8,7 @@
 AKeyTipHUD::AKeyTipHUD()
 {
 	// Set the default font
-	static ConstructorHelpers::FObjectFinder<UFont> Font(TEXT("/Engine/EngineFonts/Roboto"));
+	static ConstructorHelpers::FObjectFinder<UFont> Font(TEXT("/Game/Office/RobotoMono-VariableFont_wght_Font.RobotoMono-VariableFont_wght_Font"));
 	HUDFont = Font.Object;
 
 	bShowInteractMessage = false;
@@ -36,7 +36,9 @@ void AKeyTipHUD::DrawHUD()
 
 		// Customize text appearance
 		FCanvasTextItem TextItem(TextPosition, InteractText, HUDFont, FLinearColor::Black); // Change color here
-		TextItem.Scale = FVector2D(5.0f, 5.0f); // Increase font size (10x)
+		TextItem.Scale = FVector2D(1.0f, 1.0f);
+		TextItem.FontRenderInfo.bEnableShadow = true; // Optional: Enables shadow for better visibility
+		TextItem.bOutlined = true; 
 		TextItem.bCentreX = true; // Center horizontally
 		TextItem.bCentreY = true; // Center vertically
 

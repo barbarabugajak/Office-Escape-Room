@@ -150,10 +150,17 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 				{
 					ILookableInterface::Execute_OnLookedAt(Actor, this);
 					LastHitActor = ActorHit.GetActor();
+					AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+					if (KeyTipHUD)
+					{
+						KeyTipHUD->SetText("Press I to Interact");
+						KeyTipHUD->ShowInteractMessage(true);
+					}
 				}
 
 				if (Actor && Actor->Tags.Contains("NPC"))
 				{
+					UE_LOG(LogTemp, Display, TEXT("Looking at a NPC"));
 					FString HUDText = "Says: ";
 					
 					if (Actor->Tags.Contains( "OfficeNPC_1"))
