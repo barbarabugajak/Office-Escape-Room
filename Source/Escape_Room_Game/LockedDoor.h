@@ -25,7 +25,7 @@ class ESCAPE_ROOM_GAME_API ALockedDoor : public ADoor
 		URectLightComponent* LockedDoor_RectLight;
 		
 		UFUNCTION(BlueprintCallable, Category = "Locked Door")
-		void SetHasKey(bool bCanOpen);
+		virtual void SetHasKey(bool bCanOpen);
 	
 		// Handle the keyboard input
 		virtual void OnInteract() override;
