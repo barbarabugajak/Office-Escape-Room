@@ -13,6 +13,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Interfaces/IHttpResponse.h"
 #include "LookableInterface.h"
+#include "EntitySystem/MovieSceneEntitySystemRunner.h"
 #include "Net/NetworkMetricsDefs.h"
 #include "UObject/TemplateString.h"
 
@@ -141,8 +142,13 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 		AActor* Actor = Cast<AActor>(ActorHit.GetActor());
 		if (Actor != nullptr)
 		{
+			if (Actor->Tags.Contains("Wall"))
+			{
+				// Prevent interacting through walls
+				UE_LOG(LogTemp, Display, TEXT("Found Wall"));
+			}
 			// Don't interact with all actors
-			if (Actor->Tags.Contains("CanBeLookedAtByPlayer"))
+			else if (Actor->Tags.Contains("CanBeLookedAtByPlayer"))
 			{
 				UE_LOG(LogTemp, Display, TEXT("Looking at %s"), *Actor->GetName());
 		
