@@ -167,6 +167,18 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 					{
 						HUDText += "I think I left the key in the drawer";
 					}
+					else if (Actor->Tags.Contains( "OfficeNPC_2"))
+					{
+						HUDText += "I was about to make some coffee...";
+					}
+					else if (Actor->Tags.Contains( "OfficeNPC_3"))
+					{
+						HUDText += "I'm reading. I did nothing else today.";
+					}
+					else if (Actor->Tags.Contains( "OfficeNPC_4"))
+					{
+						HUDText += "I just came to work and took off my jacket";
+					}
 					else {
 						HUDText += "I don't have anything to say";
 					}
