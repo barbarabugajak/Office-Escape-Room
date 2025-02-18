@@ -29,7 +29,7 @@ ACollectableKey::ACollectableKey()
 	if (KeyMesh.Succeeded())
 	{
 		StaticMesh->SetStaticMesh(KeyMesh.Object);
-		// Scale the orb
+		// Scale the key
 		if (MetalOrbMaterial.Succeeded())
 		{
 			StaticMesh->SetMaterial(0, MetalOrbMaterial.Object);
