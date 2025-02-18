@@ -45,6 +45,8 @@ AEscape_Room_GameCharacter::AEscape_Room_GameCharacter()
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
 	GetRootComponent() -> SetWorldScale3D(FVector(0.5f, 0.5f, 2.0f));
+
+	bDidGameEnd = false;
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -199,7 +201,7 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 			} else
 			{
 				AKeyTipHUD* KeyTipHUD = Cast<AKeyTipHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
-				if (KeyTipHUD)
+				if (KeyTipHUD && bDidGameEnd == false)
 				{
 					KeyTipHUD->ShowInteractMessage(false);
 				}
@@ -229,4 +231,9 @@ void AEscape_Room_GameCharacter::IsLookingAt()
 void AEscape_Room_GameCharacter::Tick(float DeltaTime)
 {
 	IsLookingAt();
+}
+
+void AEscape_Room_GameCharacter::SetDidGameEnd(bool DidGameEnd)
+{
+	bDidGameEnd = DidGameEnd;
 }

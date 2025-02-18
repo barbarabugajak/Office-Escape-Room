@@ -75,5 +75,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Tick(float DeltaTime) override;
+
+	bool bDidGameEnd = false;
+	void SetDidGameEnd(bool DidGameEnd);
 };
 

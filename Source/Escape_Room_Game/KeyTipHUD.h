@@ -19,9 +19,14 @@ public:
 	FString HUDText;
 
 	void SetText(FString text);
+
+	void SetDidGameEnd(bool DidGameEnd);
+	
 private:
 	UPROPERTY()
 	UFont* HUDFont;
 
 	bool bShowInteractMessage;
+
+	bool bDidGameEnd = false;
 };
