@@ -7,5 +7,7 @@ You're locked in an office. Try to find the keys to all the rooms and get out! M
 <p> Assets are all from Starter Content, Fab, SketchFab and Thingiverse and have the CC-BY licence. Thanks to all the amazing creators out there! </p>
 
 <h2>Walkthrough</h2>
-Link to the video:
-https://drive.google.com/file/d/1z9gKeXK86IO3xf6FuEPvogey3FGLzDyZ/view?usp=share_link
+
+
+https://github.com/user-attachments/assets/ff321d75-0630-46e4-97d6-39e9bc8c273c
+
