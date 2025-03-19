@@ -1,5 +1,8 @@
 # Office Escape Room Game!
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Version](https://img.shields.io/badge/version-1.0.2-green)
+
+
 You're locked in an office. Try to find the keys to all the rooms and get out! Maybe the employees will help you?
 
 <p>My first game written in Unreal Engine 5</p>
