@@ -1,4 +1,4 @@
-# Escape Room Game!
+# Office Escape Room Game!
 
 You're locked in an office. Try to find the keys to all the rooms and get out! Maybe the employees will help you?
 
